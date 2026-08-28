@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alaina — La communauté des étudiants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet: #6C4CF1;
+    --violet-deep: #4B2FD1;
+    --lime: #D4F544;
+    --coral: #FF6B57;
+    --ink: #14121F;
+    --paper: #FAF8FF;
+    --gray: #6B6779;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-0.02em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  a:focus-visible, button:focus-visible{ outline:3px solid var(--ink); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px;
+    background:rgba(250,248,255,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--ink);
+  }
+  nav .logo{ font-size:1.3rem; font-weight:700; display:flex; align-items:center; gap:8px; }
+  nav .logo .dot{ width:10px; height:10px; background:var(--coral); border-radius:50%; display:inline-block; }
+  nav ul{ list-style:none; display:flex; gap:30px; }
+  nav a{ text-decoration:none; font-weight:600; font-size:0.92rem; }
+  .nav-cta{
+    background:var(--ink); color:var(--paper); padding:10px 22px;
+    border-radius:100px; text-decoration:none; font-weight:600; font-size:0.88rem;
+  }
+  @media (max-width:760px){ nav ul{ display:none; } }
+
+  /* HERO */
+  .hero{
+    position:relative; padding:70px 0 40px; overflow:hidden;
+  }
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(2px); z-index:0;
+  }
+  .blob1{ width:420px; height:420px; background:var(--lime); top:-140px; right:-120px; opacity:0.9; }
+  .blob2{ width:260px; height:260px; background:var(--coral); bottom:-80px; left:-90px; opacity:0.25; }
+  .hero-inner{ position:relative; z-index:2; text-align:center; padding-top:20px; }
+  .hero-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--paper);
+    padding:8px 18px; border-radius:100px; font-size:0.82rem; font-weight:600;
+    margin-bottom:28px;
+  }
+  .hero-tag .pulse{ width:8px; height:8px; background:var(--lime); border-radius:50%; animation:pulse 1.8s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    line-height:0.98; max-width:16ch; margin:0 auto;
+  }
+  .hero h1 .hl{
+    background:var(--lime); padding:0 10px; border-radius:8px;
+    display:inline-block; transform:rotate(-1.5deg);
+  }
+  .hero p{
+    max-width:44ch; margin:26px auto 0; color:var(--gray); font-size:1.08rem;
+  }
+  .hero-ctas{ display:flex; justify-content:center; gap:14px; margin-top:34px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--violet); color:#fff; padding:15px 30px; border-radius:100px;
+    text-decoration:none; font-weight:600; font-size:0.95rem;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform 0.15s ease;
+  }
+  .btn-primary:hover{ transform:translate(-2px,-2px); }
+  .btn-secondary{
+    background:#fff; color:var(--ink); padding:15px 30px; border-radius:100px;
+    text-decoration:none; font-weight:600; font-size:0.95rem;
+    border:2px solid var(--ink);
+  }
+
+  /* STATS TICKER */
+  .ticker-wrap{
+    background:var(--ink); color:var(--paper); padding:16px 0; overflow:hidden;
+    white-space:nowrap; margin-top:60px;
+  }
+  .ticker{ display:inline-flex; gap:50px; animation:scroll 26s linear infinite; }
+  .ticker span{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:1rem; }
+  .ticker .accent{ color:var(--lime); }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* SECTION HEAD */
+  .section-head{ padding:100px 0 46px; text-align:center; }
+  .section-head .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; font-weight:500;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--violet);
+    margin-bottom:14px;
+  }
+  .section-head h2{ font-size:clamp(1.9rem, 4vw, 2.6rem); max-width:20ch; margin:0 auto; }
+  .section-head p{ max-width:52ch; margin:16px auto 0; color:var(--gray); }
+
+  /* FEATURES */
+  .feature-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+    padding-bottom:110px;
+  }
+  .feature-card{
+    background:#fff; border:2px solid var(--ink); border-radius:20px;
+    padding:32px 28px; position:relative;
+    box-shadow:6px 6px 0 var(--ink);
+    transition:transform 0.15s ease;
+  }
+  .feature-card:hover{ transform:translate(-3px,-3px); }
+  .feature-card:nth-child(2){ background:var(--lime); }
+  .feature-card:nth-child(4){ background:#FFE1DB; }
+  .feature-icon{
+    width:52px; height:52px; border-radius:14px; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem; margin-bottom:20px;
+  }
+  .feature-card h3{ font-size:1.2rem; margin-bottom:10px; }
+  .feature-card p{ color:var(--gray); font-size:0.94rem; }
+  @media (max-width:900px){ .feature-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:600px){ .feature-grid{ grid-template-columns:1fr; } }
+
+  /* HOW IT WORKS */
+  .how{ background:var(--ink); color:var(--paper); }
+  .how .section-head .eyebrow{ color:var(--lime); }
+  .how .section-head p{ color:#B9B4CC; }
+  .steps{ display:flex; flex-direction:column; gap:0; padding-bottom:100px; max-width:700px; margin:0 auto; }
+  .step{
+    display:flex; gap:24px; padding:28px 0; border-bottom:1px solid rgba(255,255,255,0.15);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step-num{
+    font-family:'Space Grotesk', sans-serif; font-size:1.6rem; font-weight:700;
+    color:var(--lime); min-width:50px;
+  }
+  .step h4{ font-family:'Space Grotesk', sans-serif; font-size:1.15rem; margin-bottom:6px; }
+  .step p{ color:#B9B4CC; font-size:0.94rem; }
+
+  /* TESTIMONIALS */
+  .testimonials{ padding-bottom:110px; }
+  .testi-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .testi-card{
+    background:#fff; border:2px solid var(--ink); border-radius:20px;
+    padding:26px; position:relative;
+  }
+  .testi-card::before{
+    content:'"'; position:absolute; top:8px; right:20px;
+    font-family:'Space Grotesk', sans-serif; font-size:3rem; color:var(--lime); font-weight:700;
+    line-height:1;
+  }
+  .testi-quote{ font-size:0.96rem; margin-bottom:20px; position:relative; z-index:1; }
+  .testi-person{ display:flex; align-items:center; gap:10px; }
+  .testi-avatar{
+    width:36px; height:36px; border-radius:50%; background:var(--violet);
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    font-weight:700; font-size:0.85rem; font-family:'Space Grotesk', sans-serif;
+  }
+  .testi-name{ font-weight:600; font-size:0.88rem; }
+  .testi-role{ font-size:0.8rem; color:var(--gray); }
+  @media (max-width:900px){ .testi-grid{ grid-template-columns:1fr; } }
+
+  /* CTA */
+  .cta-section{
+    background:var(--violet); color:#fff; text-align:center;
+    padding:90px 0; position:relative; overflow:hidden;
+  }
+  .cta-section h2{ font-size:clamp(2rem, 5vw, 3rem); max-width:16ch; margin:0 auto 26px; }
+  .cta-section .btn-primary{ background:var(--lime); color:var(--ink); box-shadow:4px 4px 0 var(--ink); }
+  .cta-section p.sub{ margin-top:18px; font-size:0.85rem; opacity:0.8; }
+
+  /* FOOTER */
+  footer{ padding:50px 0; }
+  .foot-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .foot-inner .logo{ font-weight:700; font-size:1.1rem; }
+  .foot-links{ display:flex; gap:24px; list-style:none; font-size:0.85rem; color:var(--gray); }
+
+  .reveal{ opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="dot"></span>alaina</div>
+  <ul>
+    <li><a href="#features">Fonctionnalités</a></li>
+    <li><a href="#how">Comment ça marche</a></li>
+    <li><a href="#avis">Avis</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Rejoindre</a>
+</nav>
+
+<section class="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-tag"><span class="pulse"></span> Déjà dans 14 universités malgaches</div>
+    <h1>Ta vie étudiante, <span class="hl">en mieux</span> organisée.</h1>
+    <p>Notes de cours partagées, groupes de révision, bons plans campus : tout ce dont tu as besoin pour survivre — et briller — à la fac, au même endroit.</p>
+    <div class="hero-ctas">
+      <a href="#cta" class="btn-primary">Créer mon compte gratuit</a>
+      <a href="#how" class="btn-secondary">Voir comment ça marche</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>🔥 28 400+ étudiants actifs</span>
+    <span class="accent">★</span>
+    <span>📚 6 200 fiches de révision partagées</span>
+    <span class="accent">★</span>
+    <span>👥 900+ groupes d'étude</span>
+    <span class="accent">★</span>
+    <span>🎓 14 universités connectées</span>
+    <span class="accent">★</span>
+    <span>🔥 28 400+ étudiants actifs</span>
+    <span class="accent">★</span>
+    <span>📚 6 200 fiches de révision partagées</span>
+    <span class="accent">★</span>
+    <span>👥 900+ groupes d'étude</span>
+    <span class="accent">★</span>
+    <span>🎓 14 universités connectées</span>
+    <span class="accent">★</span>
+  </div>
+</div>
+
+<section id="features" class="wrap">
+  <div class="section-head reveal">
+    <div class="eyebrow">Fonctionnalités</div>
+    <h2>Tout ce qu'il te faut, rien de superflu.</h2>
+    <p>Pensé par des étudiants, pour des étudiants — pas un énième outil compliqué.</p>
+  </div>
+  <div class="feature-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon">📝</div>
+      <h3>Fiches & notes de cours</h3>
+      <p>Accède aux fiches de révision partagées par ta promo, filtrées par matière et par prof.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h3>Groupes de révision</h3>
+      <p>Trouve ou crée un groupe pour préparer un partiel, en présentiel ou en visio.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h3>Agenda campus</h3>
+      <p>Événements, soirées associatives, deadlines de rendu — tout synchronisé au même endroit.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h3>Entraide par matière</h3>
+      <p>Pose une question, un étudiant plus avancé te répond — souvent en moins d'une heure.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏷️</div>
+      <h3>Bons plans étudiants</h3>
+      <p>Réductions, jobs étudiants et logements repérés et validés par la communauté.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Suivi de progression</h3>
+      <p>Visualise ce que tu as révisé cette semaine, matière par matière.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Comment ça marche</div>
+      <h2>Trois minutes pour rejoindre ta promo.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num mono">01</div>
+        <div>
+          <h4>Crée ton compte avec ton mail universitaire</h4>
+          <p>On te connecte automatiquement à ta filière et ton année, pour voir du contenu pertinent tout de suite.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num mono">02</div>
+        <div>
+          <h4>Rejoins les groupes de ta promo</h4>
+          <p>Groupes par matière, par filière, ou par affinité — rejoins-en autant que tu veux.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num mono">03</div>
+        <div>
+          <h4>Partage et profite</h4>
+          <p>Dépose tes fiches, pose tes questions, trouve ton binôme de révision. La communauté fait le reste.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="avis" class="wrap testimonials">
+  <div class="section-head reveal">
+    <div class="eyebrow">Ils en parlent</div>
+    <h2>Des étudiants, pas des acteurs.</h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <p class="testi-quote">J'ai trouvé mon groupe de révision de stats en 10 minutes, la veille d'un partiel. Sauvé.</p>
+      <div class="testi-person">
+        <div class="testi-avatar">HR</div>
+        <div>
+          <div class="testi-name">Hery R.</div>
+          <div class="testi-role">L2 Économie</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">Les fiches partagées par les L3 m'ont clairement fait gagner deux points de moyenne.</p>
+      <div class="testi-person">
+        <div class="testi-avatar">MN</div>
+        <div>
+          <div class="testi-name">Mialy N.</div>
+          <div class="testi-role">L1 Droit</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">Enfin un endroit où les infos sur les jobs étudiants ne sont pas noyées dans un groupe Facebook.</p>
+      <div class="testi-person">
+        <div class="testi-avatar">TA</div>
+        <div>
+          <div class="testi-name">Tiana A.</div>
+          <div class="testi-role">M1 Informatique</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="cta">
+  <div class="wrap">
+    <h2>Ta promo t'attend déjà là-dessus.</h2>
+    <a href="#" class="btn-primary">Créer mon compte gratuit</a>
+    <p class="sub">Gratuit à vie pour les étudiants. Aucune carte bancaire requise.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo">alaina</div>
+    <ul class="foot-links">
+      <li>À propos</li>
+      <li>Contact</li>
+      <li>Confidentialité</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

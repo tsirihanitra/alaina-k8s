@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alaina-site
+  namespace: argocd
+  finalizers:
+    # garantit que argocd nettoie les ressources déployées si tu supprimes l'Application
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    # 🔧 REMPLACE par l'URL de ton dépôt GitHub
+    repoURL: https://github.com/<TON-USER>/<TON-DEPOT>.git
+    targetRevision: main
+    path: manifests
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: alaina
+
+  syncPolicy:
+    automated:
+      prune: true       # supprime les ressources retirées du dépôt Git
+      selfHeal: true     # remet le cluster en conformité si qqn le modifie à la main
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
