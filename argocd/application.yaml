@@ -11,7 +11,7 @@ spec:
 
   source:
     # 🔧 REMPLACE par l'URL de ton dépôt GitHub
-    repoURL: https://github.com/<TON-USER>/<TON-DEPOT>.git
+    repoURL: git@github.com:tsirihanitra/alaina-k8s.git
     targetRevision: main
     path: manifests
 
